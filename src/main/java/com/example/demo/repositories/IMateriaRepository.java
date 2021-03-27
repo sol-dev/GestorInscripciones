@@ -11,8 +11,6 @@ import com.example.demo.entities.*;
 
 
 @Repository("MateriaRepository")
-//public interface IMateriaRepository extends CrudRepository<Materia, Integer> {
-
 public interface IMateriaRepository extends JpaRepository<Materia, Serializable> {
     
     @Query("SELECT m FROM Materia m WHERE m.nombre = :_nombre ")

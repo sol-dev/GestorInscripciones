@@ -34,7 +34,7 @@ public class Materia {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_profesor")
-    @JsonIgnoreProperties("materias") //cuando traiga el profesor, no me traiga las materias
+    @JsonIgnoreProperties("materias") //al traer el profesor, no trae las materias
     private Profesor profesor;
 
     public Materia(){}

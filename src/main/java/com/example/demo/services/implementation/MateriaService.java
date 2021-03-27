@@ -35,7 +35,6 @@ public class MateriaService implements IMateriaService {
         return iMateriaRepository.findByNombre(nombre);
     }
     
-
     public List<Materia> findAll() {
         return iMateriaRepository.findAll();
     }

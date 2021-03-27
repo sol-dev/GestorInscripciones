@@ -5,20 +5,20 @@ import javax.persistence.*;
 @Entity
 @Table(name ="usuario")
 @Inheritance( strategy = InheritanceType.JOINED ) //para herencia seria la superclase
-public class Usuario {
+public abstract class Usuario {
 
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idUsuario;
+    protected int idUsuario;
 
     @Column(name ="nombre")
-    private String nombre;
+    protected String nombre;
 
     @Column(name ="apellido")
-    private String apellido;
+    protected String apellido;
 
     @Column(name="dni")
-    private long dni;
+    protected long dni;
 
     public Usuario(){}
 
@@ -66,9 +66,6 @@ public class Usuario {
         return "Usuario [apellido=" + apellido + ", dni=" + dni + ", idUsuario=" + idUsuario + ", nombre=" + nombre
                 + "]";
     }
-
-    
-
 
 
 
