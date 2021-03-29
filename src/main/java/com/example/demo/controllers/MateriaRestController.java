@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import java.util.List;
 
 import com.example.demo.entities.Materia;
+import com.example.demo.entities.Profesor;
 import com.example.demo.services.IMateriaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 
 
 @RestController
@@ -33,11 +33,30 @@ public class MateriaRestController {
         return materiaService.saveMateria(materia);
     }
 
-    //update materia
+    //update materia, se debe enviar json con id y los atributos a modificar
     @PostMapping(value = "/update", consumes = "application/json")
     public Object updateMateria(@RequestBody Materia materia){
-        System.out.println("Materia a actualizar: " + materia.toString());
-        return materiaService.saveMateria(materia);
+        Object obj =null;
+        Materia matAux= materiaService.findMateriaById(materia.getIdMateria());
+        if(matAux!=null){
+            if(materia.getNombre()==null)
+                materia.setNombre(matAux.getNombre());
+            if(materia.getCupoAlumnos()==0)
+                materia.setCupoAlumnos(matAux.getCupoAlumnos());
+            if(materia.getDia()==null)
+                materia.setDia(matAux.getDia());
+            if(materia.getHoraInicio()== null)
+                materia.setHoraInicio(matAux.getHoraInicio());
+            if(materia.getHoraFin()==null)
+                materia.setHoraFin(matAux.getHoraFin());
+            if(materia.getDescripcion()==null)
+                materia.setDescripcion(matAux.getDescripcion());
+            if(materia.getProfesor()==null)
+                materia.setProfesor(matAux.getProfesor());
+            System.out.println("Materia a actualizar: " + materia.toString());
+            obj = materiaService.saveMateria(materia);
+        }
+        return obj;
     }
 
     //borrar materia
@@ -64,6 +83,30 @@ public class MateriaRestController {
     @GetMapping("/all")
     public List<Materia> findAll(){
         return materiaService.findAll();
+    }
+
+ 
+
+    //agregar profesor a materia, debe enviarse el profesor existente
+    @PostMapping(value = "/asignarProfesor", consumes = "application/json")
+    public Object asignarProfesor(@RequestParam("idMateria") int idMateria,@RequestBody Profesor profesor ){
+        Materia materia = materiaService.findMateriaById(idMateria);
+        System.out.println(materia.toString());
+        System.out.println(profesor.toString());
+        profesor.setActivo(true);
+        String mensaje ="Profesor "+profesor.getApellido()+" "+profesor.getNombre()+" asignado a materia: "+ materia.getNombre();
+        if(materia!=null){
+            if(profesor!=null){
+                materia.setProfesor(profesor);
+                materiaService.saveMateria(materia);
+            }else{
+                mensaje ="Error: no se encontro el profesor";
+            }
+        }else{
+            mensaje ="Error: no se encontro la materia";
+        }
+        System.out.println(mensaje);
+        return materia;
     }
 
 }

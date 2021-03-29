@@ -34,7 +34,8 @@ public class Materia {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_profesor")
-    @JsonIgnoreProperties("materias") //al traer el profesor, no trae las materias
+    //@JsonIgnoreProperties("materias") //al traer el profesor, no trae las materias
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Profesor profesor;
 
     public Materia(){}

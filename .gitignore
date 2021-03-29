@@ -35,3 +35,4 @@ build/
 *.jpg
 *.mwb
 *.bak
+/node_modules/
