@@ -1,6 +1,8 @@
 package com.example.demo.entities;
 
 import java.sql.Time;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -38,6 +40,11 @@ public class Materia {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Profesor profesor;
 
+    
+    @JsonIgnoreProperties("materias")
+    @ManyToMany(mappedBy = "materias")
+    private Set<Alumno> alumnos = new HashSet<Alumno>();
+
     public Materia(){}
 
     public Materia(int idMateria, String nombre, int cupoAlumnos, String dia, Time horaInicio, Time horaFin,
@@ -49,6 +56,19 @@ public class Materia {
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
         this.descripcion = descripcion;
+    }
+
+    public Materia(int idMateria, String nombre, int cupoAlumnos, String dia, Time horaInicio, Time horaFin,
+            String descripcion, Profesor profesor, Set<Alumno> alumnos) {
+        this.idMateria = idMateria;
+        this.nombre = nombre;
+        this.cupoAlumnos = cupoAlumnos;
+        this.dia = dia;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.descripcion = descripcion;
+        this.profesor = profesor;
+        this.alumnos = alumnos;
     }
 
     public int getIdMateria() {
@@ -115,15 +135,20 @@ public class Materia {
         this.profesor = profesor;
     }
 
+    public Set<Alumno> getAlumnos() {
+        return alumnos;
+    }
+
+    public void setAlumnos(Set<Alumno> alumnos) {
+        this.alumnos = alumnos;
+    }
+
     @Override
     public String toString() {
         return "Materia [cupoAlumnos=" + cupoAlumnos + ", descripcion=" + descripcion + ", dia=" + dia + ", horaFin="
                 + horaFin + ", horaInicio=" + horaInicio + ", idMateria=" + idMateria + ", nombre=" + nombre
                 + ", profesor=" + profesor + "]";
     }
-
-    
-
 
 
 }

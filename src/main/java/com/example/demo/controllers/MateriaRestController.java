@@ -45,10 +45,10 @@ public class MateriaRestController {
                 materia.setCupoAlumnos(matAux.getCupoAlumnos());
             if(materia.getDia()==null)
                 materia.setDia(matAux.getDia());
-            if(materia.getHoraInicio()== null)
+            /*if(materia.getHoraInicio()== null)
                 materia.setHoraInicio(matAux.getHoraInicio());
             if(materia.getHoraFin()==null)
-                materia.setHoraFin(matAux.getHoraFin());
+                materia.setHoraFin(matAux.getHoraFin()); */
             if(materia.getDescripcion()==null)
                 materia.setDescripcion(matAux.getDescripcion());
             if(materia.getProfesor()==null)

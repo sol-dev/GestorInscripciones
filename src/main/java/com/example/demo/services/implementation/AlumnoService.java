@@ -44,6 +44,9 @@ public class AlumnoService implements IAlumnoService{
         return iAlumnoRepository.findAll();
     }
 
-    
+   
+    public void anularInscripcion(int idAlumno, int idMateria) {
+        iAlumnoRepository.removeMateria(idAlumno, idMateria);
+    }
 
 }

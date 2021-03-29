@@ -17,5 +17,7 @@ public interface IAlumnoService {
     public Alumno findByLegajo(String legajo);
 
     public List<Alumno> findAll();
+
+    public void anularInscripcion(int idAlumno, int idMateria );
 }
 
